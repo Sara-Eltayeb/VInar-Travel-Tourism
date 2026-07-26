@@ -34,7 +34,8 @@ function rowsToData(rows) {
 function renderServices() {
   const visible = services.filter(service => selectedFilter === 'All' || service.category === selectedFilter);
   document.querySelector('#serviceCount').textContent = `${services.length} service${services.length === 1 ? '' : 's'}`;
-  document.querySelector('#navCount').textContent = services.length || '—';
+  const navCount = document.querySelector('#navCount');
+  if (navCount) navCount.textContent = services.length || '—';
   document.querySelector('#serviceList').innerHTML = visible.slice(0, 8).map(service => `<div class="service-row"><div><strong>${escapeHtml(service.name)}</strong><small>${escapeHtml(service.category)} · ${escapeHtml(service.duration)}</small></div><div><div class="price">${escapeHtml(money(service.price))}</div><div class="tag">${escapeHtml(service.slots || 'Check slots')}</div></div></div>`).join('') || '<div class="empty-state">No live services are available to display yet.</div>';
 }
 
