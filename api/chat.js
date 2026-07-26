@@ -12,7 +12,8 @@ module.exports = async function handler(request, response) {
   if (request.method !== 'POST') return response.status(405).json({ error: 'Method not allowed' });
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return response.status(503).json({ error: 'Gemini is not configured' });
-  const question = String(request.body?.question || '').trim();
+  const body = typeof request.body === 'string' ? JSON.parse(request.body || '{}') : (request.body || {});
+  const question = String(body.question || '').trim();
   if (!question) return response.status(400).json({ error: 'Question is required' });
 
   const prompt = `${instructions}\n\nVinar data:\n${JSON.stringify(data)}\n\nCustomer question:\n${question}`;
