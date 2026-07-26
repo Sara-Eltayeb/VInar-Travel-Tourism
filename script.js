@@ -13,7 +13,8 @@ let dataReady = Promise.resolve();
 
 const clean = value => String(value ?? '').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
-const words = value => normalize(value).split(/\s+/).filter(word => word.length > 2);
+const STOP_WORDS = new Set(['a', 'an', 'and', 'are', 'can', 'do', 'for', 'how', 'i', 'is', 'me', 'my', 'of', 'please', 'the', 'to', 'what', 'where', 'which', 'with', 'you', 'your']);
+const words = value => normalize(value).split(/\s+/).filter(word => word.length > 2 && !STOP_WORDS.has(word));
 const escapeHtml = value => clean(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const money = value => clean(value) ? (clean(value).includes('$') ? clean(value) : `$${clean(value)}`) : 'Price on request';
 
@@ -97,14 +98,34 @@ async function loadLiveData() {
 
 function score(query, value) {
   const target = normalize(value);
-  return words(query).reduce((total, word) => total + (target.includes(word) ? (target === normalize(query) ? 4 : 1) : 0), 0);
+  return words(query).reduce((total, word) => {
+    if (target.includes(word)) return total + 1;
+    const close = target.split(/\s+/).some(candidate => candidate.length > 2 && levenshtein(word, candidate) <= (word.length > 5 ? 2 : 1));
+    return total + (close ? 0.75 : 0);
+  }, 0);
+}
+
+function levenshtein(first, second) {
+  const row = Array.from({ length: second.length + 1 }, (_, index) => index);
+  for (let i = 1; i <= first.length; i += 1) {
+    let previous = row[0];
+    row[0] = i;
+    for (let j = 1; j <= second.length; j += 1) {
+      const current = row[j];
+      row[j] = Math.min(row[j] + 1, row[j - 1] + 1, previous + (first[i - 1] === second[j - 1] ? 0 : 1));
+      previous = current;
+    }
+  }
+  return row[second.length];
 }
 
 function answer(question) {
   const query = normalize(question);
-  const faqMatches = faqs.map(faq => ({ faq, score: score(query, `${faq.category} ${faq.question} ${faq.answer}`) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
-  if (faqMatches[0] && faqMatches[0].score >= 2) return { text: faqMatches[0].faq.answer };
   const serviceMatches = services.map(service => ({ service, score: score(query, `${service.category} ${service.type} ${service.name} ${service.description}`) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 4).map(item => item.service);
+  const faqMatches = faqs.map(faq => ({ faq, score: score(query, faq.question) * 3 + score(query, faq.category) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
+  const asksForService = ['package', 'honeymoon', 'umrah', 'hajj', 'flight', 'hotel', 'tour', 'transfer', 'visa', 'service', 'price', 'cost', 'offer', 'available'].some(term => score(query, term) > 0);
+  if (serviceMatches.length && asksForService) return { text: `I found ${serviceMatches.length === 1 ? 'this option' : 'these options'} in Vinar’s live directory:`, cards: serviceMatches };
+  if (faqMatches[0] && faqMatches[0].score >= 3) return { text: faqMatches[0].faq.answer };
   if (!serviceMatches.length) return { text: 'I could not find an answer in Vinar’s connected Services & Packages or FAQ data. A human advisor can check custom routes and special requests. Call +249 914 101 013 / 012.' };
   return { text: `I found ${serviceMatches.length === 1 ? 'this option' : 'these options'} in Vinar’s live directory:`, cards: serviceMatches };
 }
