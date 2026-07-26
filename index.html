@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meadow Vet Care | Ask Meadow</title>
-    <meta name="description" content="Ask Meadow Vet Care about services, availability and offers." />
+    <title>Vinar Travel | Travel with confidence</title>
+    <meta name="description" content="Ask Vinar about travel services, packages, availability and booking." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
@@ -13,28 +13,28 @@
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <div class="brand"><div class="brand-mark">M</div><div><strong>Meadow</strong><span>VET CARE</span></div></div>
+        <div class="brand"><div class="brand-mark">V</div><div><strong>Vinar</strong><span>TRAVEL & TOURISM</span></div></div>
         <div class="sidebar-label">Workspace</div>
-        <button class="nav-item active"><span class="nav-icon">✦</span> Ask Meadow</button>
-        <button class="nav-item" id="servicesNav"><span class="nav-icon">▤</span> All services <span class="nav-count">90+</span></button>
-        <div class="sidebar-label recent-label">Recent chats</div>
-        <button class="chat-history"><span>Microchipping offers</span><small>Today</small></button>
-        <button class="chat-history"><span>Dental care for dogs</span><small>Yesterday</small></button>
-        <div class="sidebar-bottom"><div class="clinic-status"><i></i><span>Live clinic data</span><b>Synced</b></div><div class="avatar">JD</div><div class="profile"><strong>Jamie Doyle</strong><span>Pet parent</span></div><span class="dots">•••</span></div>
+        <button class="nav-item active"><span class="nav-icon">✦</span> Ask Vinar</button>
+        <button class="nav-item" id="servicesNav"><span class="nav-icon">▤</span> Services <span class="nav-count" id="navCount">—</span></button>
+        <div class="sidebar-label recent-label">Popular questions</div>
+        <button class="chat-history" data-question="What honeymoon packages are available?"><span>Honeymoon packages</span><small>Explore options</small></button>
+        <button class="chat-history" data-question="What documents do I need for a visa?"><span>Visa documents</span><small>Get a checklist</small></button>
+        <div class="sidebar-bottom"><div class="clinic-status"><i></i><span>Live Vinar data</span><b id="syncStatus">Connecting</b></div><div class="avatar">VN</div><div class="profile"><strong>Vinar advisor</strong><span>Travel support</span></div><span class="dots">•••</span></div>
       </aside>
 
       <main class="main-content">
-        <header class="topbar"><button class="mobile-menu" id="mobileMenu">☰</button><div class="breadcrumb"><span>Meadow Vet Care</span><b>/</b><strong>Ask Meadow</strong></div><div class="top-actions"><span class="updated"><i></i> Data updated just now</span><button class="icon-button">?</button></div></header>
+        <header class="topbar"><button class="mobile-menu" id="mobileMenu">☰</button><div class="breadcrumb"><span>Vinar Travel</span><b>/</b><strong>Ask Vinar</strong></div><div class="top-actions"><span class="updated"><i></i> <span id="dataStatus">Connecting to live data</span></span><button class="icon-button">?</button></div></header>
         <section class="chat-area">
-          <div class="welcome-block"><div class="eyebrow"><span>✦</span> Your personal clinic guide</div><h1>How can we help<br /><em>you and your pet?</em></h1><p>Ask about our services, pricing, availability or current offers. I’ll find the answer from Meadow’s live clinic data.</p></div>
-          <div class="suggestions"><button data-question="What dog services do you offer?">🐕 <span>Dog services</span><b>↗</b></button><button data-question="Are there any offers on microchipping?">♡ <span>Microchipping offers</span><b>↗</b></button><button data-question="Do you have telehealth services?">◌ <span>Telehealth</span><b>↗</b></button><button data-question="What services are available for cats?">🐈 <span>Cat services</span><b>↗</b></button></div>
+          <div class="welcome-block"><div class="eyebrow"><span>✦</span> Your travel advisor</div><h1>Where would you like<br /><em>to go next?</em></h1><p>Ask about flights, visas, hotels, Umrah, honeymoons, tours or transfers. I’ll check Vinar’s live services and FAQ data.</p></div>
+          <div class="suggestions"><button data-question="What travel services do you offer?">✈ <span>Browse services</span><b>↗</b></button><button data-question="What honeymoon packages are available?">♡ <span>Honeymoon packages</span><b>↗</b></button><button data-question="Do you have Umrah packages?">☾ <span>Umrah packages</span><b>↗</b></button><button data-question="What documents do I need for a visa?">▣ <span>Visa help</span><b>↗</b></button></div>
           <div class="conversation" id="conversation"></div>
-          <form class="composer" id="chatForm"><input id="questionInput" autocomplete="off" placeholder="Ask about your pet's care..." /><button type="submit" aria-label="Send">↑</button><div class="composer-hint">Powered by Meadow’s live services sheet <span>⌘ ↵</span></div></form>
-          <p class="disclaimer">Meadow Guide can make mistakes. For urgent concerns, please call the clinic directly.</p>
+          <form class="composer" id="chatForm"><input id="questionInput" autocomplete="off" placeholder="Ask about your next trip..." /><button type="submit" aria-label="Send">↑</button><div class="composer-hint">Powered by Vinar’s live services and FAQ data <span>⌘ ↵</span></div></form>
+          <p class="disclaimer">Prices, offers and availability come from the connected Vinar data source. Booking and payment are completed by a human advisor.</p>
         </section>
       </main>
 
-      <aside class="insights"><div class="insights-heading"><div><span class="eyebrow">LIVE DIRECTORY</span><h2>Meadow services</h2></div><button class="close-insights">×</button></div><div class="data-pulse"><span class="pulse-dot"></span><div><strong id="serviceCount">90+ services</strong><small>Available in our directory</small></div><span class="refresh">↻</span></div><div class="filter-row"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Dog">Dogs</button><button class="filter" data-filter="Cat">Cats</button><button class="filter" data-filter="Rabbit">Rabbits</button></div><div class="service-list" id="serviceList"></div><button class="view-all" id="viewAll">View all services <span>→</span></button><div class="sheet-note"><span>▣</span><div><strong>Connected to live data</strong><small>Google Sheet · synced just now</small></div></div></aside>
+      <aside class="insights"><div class="insights-heading"><div><span class="eyebrow">LIVE DIRECTORY</span><h2>Vinar services</h2></div><button class="close-insights">×</button></div><div class="data-pulse"><span class="pulse-dot"></span><div><strong id="serviceCount">Loading services</strong><small>From the connected directory</small></div><span class="refresh" id="refreshData">↻</span></div><div class="filter-row"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Flight Booking">Flights</button><button class="filter" data-filter="Visa Services">Visas</button><button class="filter" data-filter="International Tourism">Tours</button></div><div class="service-list" id="serviceList"></div><button class="view-all" id="viewAll">View all services <span>→</span></button><div class="sheet-note"><span>▣</span><div><strong>Connected to live data</strong><small>Services & Packages · FAQ</small></div></div></aside>
     </div>
     <script src="script.js"></script>
   </body>

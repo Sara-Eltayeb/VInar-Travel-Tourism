@@ -1,65 +1,73 @@
-const SHEET_ID = '1JhSODtviGHzXru6Eb5MhfXfVIF5vtJk3pclzzv7j2l4';
-const GID = '1277715587';
-const fallback = [
-  ['MVC-004','Consultation','Dog','230','20','Yes','Mon-Fri','5','Telehealth video consult'],
-  ['MVC-001','Consultation','Dog','55','25','Yes','Mon-Sat','0','15% off this month','General consultation'],
-  ['MVC-043','Dental','Dog','325','90','Yes','Mon-Fri','4','Free nail trim included','Scale & polish (dental)'],
-  ['MVC-088','Emergency','Dog','260','60','No','24/7','2','20% off in July','Emergency stabilisation'],
-  ['MVC-085','Emergency','Dog','150','40','No','24/7','2','','Out-of-hours emergency consult'],
-  ['MVC-066','Diagnostics','Cat','185','45','Yes','Mon-Fri','0','Book online & save 10%','Ultrasound scan'],
-  ['MVC-052','Surgery','Cat','180','90','Yes','Mon-Fri','8','20% off in July','Neutering (spay/castrate)'],
-  ['MVC-014','Preventive','Dog','60','30','Yes','Mon-Sat','6','Free nail trim included','Annual wellness check'],
-  ['MVC-037','Microchip & ID','Dog','95','40','Yes','Mon-Fri','3','Pet passport & travel cert','Microchipping'],
-  ['MVC-034','Microchip & ID','Dog','30','15','No','Mon-Sat','5','','Microchipping'],
-  ['MVC-005','Consultation','Cat','30','20','Yes','Mon-Fri','7','Telehealth video consult'],
-  ['MVC-003','Consultation','Rabbit','55','25','Yes','Mon-Sat','5','20% off in July','General consultation'],
-  ['MVC-084','Consultation','Bird','50','30','Yes','Tue-Thu','5','','Avian health check'],
-  ['MVC-083','Consultation','Small mammal','42','25','Yes','Mon-Fri','2','Free nail trim included','Small-mammal health check'],
-  ['MVC-077','Grooming','Dog','18','15','No','Mon-Sat','5','20% off in July','Nail clipping'],
-  ['MVC-031','Vaccination','Dog','38','15','Yes','Mon-Sat','3','','Kennel cough vaccine']
-];
-let services = fallback.map(makeService);
+const SOURCE_URL = 'https://studentncirl-my.sharepoint.com/:x:/r/personal/x25134680_student_ncirl_ie/Documents/Finar_Services_and_FAQ.xlsx?download=1';
+const services = [];
+const faqs = [];
 let selectedFilter = 'All';
 
-function makeService(row) { return { id: row[0], category: row[1], species: row[2], price: Number(String(row[3]).replace(/[^\d.-]/g, '')) || 0, duration: row[4], appointment: row[5], availability: row[6], slots: row[7], offer: row[8] || '', name: row[9] || row[8] || 'General consultation' }; }
-function parseSheet(text) {
-  const start = text.indexOf('('), end = text.lastIndexOf(')');
-  if (start < 0 || end < 0) return [];
-  const json = JSON.parse(text.slice(start + 1, end));
-  return json.table.rows.slice(1).map(r => r.c.map(c => c ? (c.f ?? c.v ?? '') : '')).map(makeService);
+const clean = value => String(value ?? '').trim();
+const escapeHtml = value => clean(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+const money = value => clean(value) ? (clean(value).includes('$') ? clean(value) : `$${clean(value)}`) : 'Price on request';
+const normalize = value => clean(value).toLowerCase();
+
+function rowToService(row) {
+  return { id: row.service_id, category: row.category, type: row.type, price: row.price_usd, duration: row.duration, booking: row.requires_booking, availability: row.availability, slots: row.slots_this_week, offer: row.special_offer, name: row.service_name, description: row.description };
 }
-async function loadLiveData() {
-  try {
-    const response = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`);
-    const live = parseSheet(await response.text());
-    if (live.length) { services = live; renderServices(); }
-  } catch (error) { /* The local set keeps the guide useful when CORS or offline blocks Sheets. */ }
-}
-function euro(n) { return `€${Number(n).toLocaleString('en-IE')}`; }
+
 function renderServices() {
-  const visible = services.filter(s => selectedFilter === 'All' || s.species === selectedFilter);
-  document.querySelector('#serviceCount').textContent = `${services.length >= 90 ? '90+' : services.length} services`;
-  document.querySelector('#serviceList').innerHTML = visible.slice(0, 9).map(s => `<div class="service-row"><div><strong>${s.name}</strong><small>${s.category} · ${s.species}</small></div><div><div class="price">${euro(s.price)}</div><div class="tag">${s.slots} slots</div></div></div>`).join('');
+  const visible = services.filter(service => selectedFilter === 'All' || service.category === selectedFilter);
+  document.querySelector('#serviceCount').textContent = `${services.length} service${services.length === 1 ? '' : 's'}`;
+  document.querySelector('#navCount').textContent = services.length || '—';
+  document.querySelector('#serviceList').innerHTML = visible.slice(0, 8).map(service => `<div class="service-row"><div><strong>${escapeHtml(service.name)}</strong><small>${escapeHtml(service.category)} · ${escapeHtml(service.duration)}</small></div><div><div class="price">${escapeHtml(money(service.price))}</div><div class="tag">${escapeHtml(service.slots || 'Check slots')}</div></div></div>`).join('') || '<div class="empty-state">No live services are available to display yet.</div>';
 }
+
+function parseRows(rows) {
+  const headers = rows[0].map(clean);
+  return rows.slice(1).map(row => Object.fromEntries(headers.map((header, index) => [header, clean(row[index])])));
+}
+
+function parseCsv(text) {
+  return text.trim().split(/\r?\n/).map(line => line.split(',').map(value => value.replace(/^"|"$/g, '')));
+}
+
+async function loadLiveData() {
+  document.querySelector('#syncStatus').textContent = 'Connecting';
+  try {
+    const response = await fetch(window.VINAR_DATA_URL || SOURCE_URL, { mode: 'cors' });
+    if (!response.ok) throw new Error('Source unavailable');
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('json') && !contentType.includes('csv')) throw new Error('Workbook requires a public CSV/JSON export');
+    const payload = await response.text();
+    const data = JSON.parse(payload);
+    services.splice(0, services.length, ...(data.services || []).map(rowToService));
+    faqs.splice(0, faqs.length, ...(data.faqs || []));
+    document.querySelector('#dataStatus').textContent = 'Data updated just now';
+    document.querySelector('#syncStatus').textContent = 'Synced';
+  } catch (error) {
+    document.querySelector('#dataStatus').textContent = 'Live source needs access';
+    document.querySelector('#syncStatus').textContent = 'Check access';
+  }
+  renderServices();
+}
+
 function answer(question) {
-  const q = question.toLowerCase();
-  let found = services.filter(s => (q.includes('dog') ? s.species === 'Dog' : q.includes('cat') ? s.species === 'Cat' : q.includes('rabbit') ? s.species === 'Rabbit' : true));
-  if (q.includes('microchip')) found = services.filter(s => s.category === 'Microchip & ID');
-  else if (q.includes('telehealth')) found = services.filter(s => s.name.toLowerCase().includes('telehealth'));
-  else if (q.includes('offer') || q.includes('discount')) found = services.filter(s => s.offer);
-  else if (q.includes('emergency')) found = services.filter(s => s.category === 'Emergency');
-  else if (q.includes('dental')) found = services.filter(s => s.category === 'Dental');
-  found = found.slice(0, 4);
-  if (!found.length) return { text: `I couldn't find a matching service in the live directory. Try asking about a species, service, price or offer.` };
-  const subject = q.includes('offer') || q.includes('discount') ? 'Here are the current offers I found:' : `I found ${found.length === 1 ? 'this service' : 'these services'} in Meadow's live directory:`;
-  return { text: subject, cards: found };
+  const query = normalize(question);
+  const faq = faqs.find(item => normalize(item.question).includes(query) || query.includes(normalize(item.question)));
+  if (faq) return { text: faq.answer };
+  const matches = services.filter(service => [service.category, service.type, service.name, service.description].some(value => normalize(value).includes(query) || query.split(/\s+/).some(word => word.length > 3 && normalize(value).includes(word))));
+  if (!matches.length) return { text: 'I could not find that in Vinar’s connected services or FAQ data. A human advisor can check custom routes, special requests or anything not listed here. Call +249 914 101 013 / 012.' };
+  return { text: `I found ${matches.length === 1 ? 'this option' : 'these options'} in Vinar’s live directory:`, cards: matches.slice(0, 4) };
 }
+
 function send(question) {
   if (!question.trim()) return;
   const conversation = document.querySelector('#conversation');
-  conversation.insertAdjacentHTML('beforeend', `<div class="message user">${question.replace(/[<>]/g, '')}</div>`);
+  conversation.insertAdjacentHTML('beforeend', `<div class="message user">${escapeHtml(question)}</div>`);
   const result = answer(question);
-  const cards = result.cards ? `<div class="answer-card">${result.cards.map(s => `<div><strong>${s.name}</strong><small>${s.species} · ${s.duration} min · ${s.availability}</small></div><div><b>${euro(s.price)}</b><span>${s.offer || `${s.slots} slots`}</span></div>`).join('')}</div>` : '';
-  setTimeout(() => { conversation.insertAdjacentHTML('beforeend', `<div class="message bot"><strong>Meadow Guide</strong><br>${result.text}${cards}</div>`); conversation.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 250);
+  const cards = result.cards ? `<div class="answer-card">${result.cards.map(service => `<div><strong>${escapeHtml(service.name)}</strong><small>${escapeHtml(service.category)} · ${escapeHtml(service.duration)} · ${escapeHtml(service.availability)}</small></div><div><b>${escapeHtml(money(service.price))}</b><span>${escapeHtml(service.offer || (service.slots === '0' ? 'Fully booked this week' : `${service.slots || 'Check'} slots this week`))}</span></div>`).join('')}</div>` : '';
+  setTimeout(() => { conversation.insertAdjacentHTML('beforeend', `<div class="message bot"><strong>Vinar Travel</strong><br>${escapeHtml(result.text)}${cards}</div>`); conversation.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 180);
 }
-document.querySelector('#chatForm').addEventListener('submit', e => { e.preventDefault(); const input = document.querySelector('#questionInput'); send(input.value); input.value = ''; });
+
+document.querySelector('#chatForm').addEventListener('submit', event => { event.preventDefault(); const input = document.querySelector('#questionInput'); send(input.value); input.value = ''; });
+document.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => send(button.dataset.question)));
+document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => { selectedFilter = button.dataset.filter; document.querySelectorAll('.filter').forEach(item => item.classList.toggle('active', item === button)); renderServices(); }));
+document.querySelector('#refreshData').addEventListener('click', loadLiveData);
+loadLiveData();
