@@ -1,4 +1,7 @@
-const SHAREPOINT_WORKBOOK_URL = 'https://studentncirl-my.sharepoint.com/:x:/r/personal/x25134680_student_ncirl_ie/_layouts/15/doc2.aspx?action=edit&sourcedoc=%7Baa91b898-7ebf-43d1-9768-359c3b5ff4e7%7D&wdExp=TEAMS-TREATMENT&web=1&TeamsCID=e2df6189-66f5-4c6a-b36d-4ce29808e0c6';
+const WORKBOOK_SOURCES = [
+  'https://1drv.ms/x/c/19b2686eee879b15/IQD1elhkALFnRK8yfklM69vkAcRaUh4T97Qn9he6cGXJZQQ?e=04Hzrm',
+  'https://studentncirl-my.sharepoint.com/:x:/r/personal/x25134680_student_ncirl_ie/_layouts/15/doc2.aspx?action=edit&sourcedoc=%7Baa91b898-7ebf-43d1-9768-359c3b5ff4e7%7D&wdExp=TEAMS-TREATMENT&web=1&TeamsCID=e2df6189-66f5-4c6a-b36d-4ce29808e0c6'
+];
 const services = [];
 const faqs = [];
 let selectedFilter = 'All';
@@ -53,10 +56,18 @@ async function parseResponse(response) {
 async function loadLiveData() {
   document.querySelector('#syncStatus').textContent = 'Connecting';
   try {
-    const source = window.VINAR_DATA_URL || SHAREPOINT_WORKBOOK_URL;
-    const response = await fetch(source, { mode: 'cors', credentials: 'include', cache: 'no-store' });
-    if (!response.ok) throw new Error(`Source returned ${response.status}`);
-    setData(await parseResponse(response));
+    const sources = window.VINAR_DATA_URL ? [window.VINAR_DATA_URL] : WORKBOOK_SOURCES;
+    let loaded = false;
+    for (const source of sources) {
+      try {
+        const response = await fetch(source, { mode: 'cors', credentials: 'include', cache: 'no-store' });
+        if (!response.ok) continue;
+        setData(await parseResponse(response));
+        loaded = true;
+        break;
+      } catch (sourceError) { /* Try the next configured source. */ }
+    }
+    if (!loaded) throw new Error('No workbook source was accessible');
     document.querySelector('#dataStatus').textContent = 'Data updated just now';
     document.querySelector('#syncStatus').textContent = 'Synced';
   } catch (error) {
