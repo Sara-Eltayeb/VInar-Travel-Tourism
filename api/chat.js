@@ -8,11 +8,19 @@ Never guarantee visa approval. Explain that embassies make the final decision.
 Never process payment. For booking confirmation, payment, complaints, refunds in dispute, missing information, or a request for a human, refer the customer to +249 914 101 013 / 012.
 Answer in clear natural English.`;
 
+async function getBody(request) {
+  if (request.body && typeof request.body === 'object') return request.body;
+  if (typeof request.body === 'string') return JSON.parse(request.body || '{}');
+  const chunks = [];
+  for await (const chunk of request) chunks.push(chunk);
+  return JSON.parse(Buffer.concat(chunks).toString() || '{}');
+}
+
 module.exports = async function handler(request, response) {
   if (request.method !== 'POST') return response.status(405).json({ error: 'Method not allowed' });
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return response.status(503).json({ error: 'Gemini is not configured' });
-  const body = typeof request.body === 'string' ? JSON.parse(request.body || '{}') : (request.body || {});
+  const body = await getBody(request);
   const question = String(body.question || '').trim();
   if (!question) return response.status(400).json({ error: 'Question is required' });
 
