@@ -124,6 +124,8 @@ function answer(question) {
   const query = normalize(question);
   const serviceMatches = services.map(service => ({ service, score: score(query, `${service.category} ${service.type} ${service.name} ${service.description}`) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 4).map(item => item.service);
   const faqMatches = faqs.map(faq => ({ faq, score: score(query, faq.question) * 3 + score(query, faq.category) })).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
+  const nonTravelIntent = ['pizza', 'juice', 'orange', 'food', 'recipe', 'cook', 'cooking', 'restaurant', 'order food', 'music', 'movie', 'football'].some(term => query.includes(term));
+  if (nonTravelIntent) return { text: 'I’m here to help with Vinar’s travel and tourism services, such as flights, visas, hotels, Umrah, honeymoons, tours, transfers, and travel support. I can’t help with food orders or other non-travel requests.' };
   const hasTravelIntent = ['travel', 'flight', 'visa', 'hotel', 'umrah', 'hajj', 'honeymoon', 'tour', 'transfer', 'car', 'passport', 'insurance', 'booking', 'service', 'package', 'destination', 'airport', 'trip', 'tourism', 'currency', 'weather'].some(term => score(query, term) > 0);
   if (!hasTravelIntent && !faqMatches.length) return { text: 'I’m here to help with Vinar’s travel and tourism services, such as flights, visas, hotels, Umrah, honeymoons, tours, transfers, and travel support. I can’t help with food orders or other non-travel requests.' };
   const asksForService = ['package', 'honeymoon', 'umrah', 'hajj', 'flight', 'hotel', 'tour', 'transfer', 'visa', 'service', 'price', 'cost', 'offer', 'available'].some(term => score(query, term) > 0);
