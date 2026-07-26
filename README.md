@@ -62,3 +62,6 @@ META_GRAPH_VERSION=v21.0
 ```
 
 In Meta for Developers, configure the WhatsApp webhook callback URL as `https://your-vercel-domain.vercel.app/api/whatsapp`, use the same verification token, and subscribe to the `messages` field. The WhatsApp number must be registered in a Meta Business account and cannot be connected using only a normal personal WhatsApp account.
+## Weather and currency MCP
+
+The Vercel MCP endpoint is available at `https://your-vercel-domain.vercel.app/api/mcp` and exposes `get_weather` and `convert_currency`. The desktop widgets call these MCP tools when deployed on Vercel and fall back to the public APIs when running on GitHub Pages. The MCP endpoint requires no API key.

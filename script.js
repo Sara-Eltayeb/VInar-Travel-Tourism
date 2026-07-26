@@ -136,6 +136,11 @@ async function loadCurrency() {
   const output = document.querySelector('#currencyResult');
   output.textContent = 'Checking live rate...';
   try {
+    const mcp = await callMcpTool('convert_currency', { amount, currency });
+    if (mcp?.value !== undefined) {
+      output.textContent = `${amount.toLocaleString()} USD ≈ ${Number(mcp.value).toLocaleString()} ${currency}`;
+      return;
+    }
     const response = await fetch('https://open.er-api.com/v6/latest/USD');
     const data = await response.json();
     output.textContent = `${amount.toLocaleString()} USD ≈ ${(amount * data.rates[currency]).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${currency}`;
@@ -150,6 +155,11 @@ async function loadWeather() {
   if (!destination) return;
   output.textContent = 'Finding destination...';
   try {
+    const mcp = await callMcpTool('get_weather', { destination });
+    if (mcp?.destination) {
+      output.innerHTML = `<strong>${escapeHtml(mcp.destination)}</strong><span>${Math.round(mcp.temperature_c)}°C · Wind ${Math.round(mcp.wind_kmh)} km/h</span>`;
+      return;
+    }
     const locationResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(destination)}&count=1&language=en&format=json`);
     const location = (await locationResponse.json()).results?.[0];
     if (!location) throw new Error('Destination not found');
@@ -158,6 +168,16 @@ async function loadWeather() {
     output.innerHTML = `<strong>${escapeHtml(location.name)}</strong><span>${Math.round(weather.current.temperature_2m)}°C · ${weatherDescription(weather.current.weather_code)}</span>`;
   } catch (error) {
     output.textContent = 'Weather unavailable for this destination';
+  }
+}
+
+async function callMcpTool(name, args) {
+  try {
+    const response = await fetch('/api/mcp', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: Date.now(), method: 'tools/call', params: { name, arguments: args } }) });
+    if (!response.ok) return null;
+    return (await response.json()).result?.structuredContent || null;
+  } catch (error) {
+    return null;
   }
 }
 
