@@ -44,3 +44,7 @@ The browser can parse an anonymously accessible `.xlsx` response using SheetJS. 
 The workbook currently returns `401 Unauthorized` outside the Microsoft account session. GitHub Pages cannot safely carry Microsoft credentials or bypass that access control. Make the workbook anonymous-read or provide the authenticated proxy before expecting live answers in the public deployment.
 
 Booking confirmation and payment are always handled by a human Vinar advisor.
+
+## Optional Gemini assistant
+
+The repository includes an optional Vercel-compatible `/api/chat` endpoint. Deploy the repository to Vercel and add `GEMINI_API_KEY` as a server-side environment variable. The browser will use Gemini when the endpoint is available and fall back to the local data matcher otherwise. Never place the key in `script.js`, `data.json`, or GitHub Pages.

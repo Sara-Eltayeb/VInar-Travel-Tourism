@@ -130,13 +130,24 @@ function answer(question) {
   return { text: `I found ${serviceMatches.length === 1 ? 'this option' : 'these options'} in Vinar’s live directory:`, cards: serviceMatches };
 }
 
+async function answerWithGemini(question) {
+  try {
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question }) });
+    if (!response.ok) return null;
+    const result = await response.json();
+    return result.text ? { text: result.text } : null;
+  } catch (error) {
+    return null;
+  }
+}
+
 async function send(question) {
   if (!question.trim()) return;
   const conversation = document.querySelector('#conversation');
   conversation.replaceChildren();
   conversation.insertAdjacentHTML('beforeend', `<div class="message user">${escapeHtml(question)}</div>`);
   await dataReady;
-  const result = answer(question);
+  const result = (await answerWithGemini(question)) || answer(question);
   const cards = result.cards ? `<div class="answer-card">${result.cards.map(service => `<div><strong>${escapeHtml(service.name)}</strong><small>${escapeHtml(service.category)} · ${escapeHtml(service.duration)} · ${escapeHtml(service.availability)}</small></div><div><b>${escapeHtml(money(service.price))}</b><span>${escapeHtml(service.offer || (service.slots === '0' ? 'Fully booked this week' : `${service.slots || 'Check'} slots this week`))}</span></div>`).join('')}</div>` : '';
   setTimeout(() => { conversation.insertAdjacentHTML('beforeend', `<div class="message bot"><strong>Vinar Travel</strong><br>${escapeHtml(result.text)}${cards}</div>`); conversation.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 180);
 }
