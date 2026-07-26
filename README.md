@@ -8,7 +8,7 @@ The interface is intentionally empty until it can read the connected source. Thi
 
 The app first targets the new OneDrive workbook here:
 
-`https://1drv.ms/x/c/19b2686eee879b15/IQD1elhkALFnRK8yfklM69vkAcRaUh4T97Qn9he6cGXJZQQ?e=04Hzrm`
+`https://1drv.ms/x/c/19b2686eee879b15/IQD1elhkALFnRK8yfklM69vkAcRaUh4T97Qn9he6cGXJZQQ?e=Ve8lBx`
 
 It falls back to the original SharePoint workbook here:
 
