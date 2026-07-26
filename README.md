@@ -48,3 +48,17 @@ Booking confirmation and payment are always handled by a human Vinar advisor.
 ## Optional Gemini assistant
 
 The repository includes an optional Vercel-compatible `/api/chat` endpoint. Deploy the repository to Vercel and add `GEMINI_API_KEY` as a server-side environment variable. The browser will use Gemini when the endpoint is available and fall back to the local data matcher otherwise. Never place the key in `script.js`, `data.json`, or GitHub Pages.
+
+## WhatsApp Business connector
+
+The Vercel-compatible `/api/whatsapp` endpoint supports Meta's WhatsApp Cloud API. Add these Vercel Production variables:
+
+```text
+GEMINI_API_KEY=your Google AI Studio key
+WHATSAPP_ACCESS_TOKEN=your Meta permanent access token
+WHATSAPP_PHONE_NUMBER_ID=your WhatsApp phone number ID
+WHATSAPP_VERIFY_TOKEN=any private verification string you choose
+META_GRAPH_VERSION=v21.0
+```
+
+In Meta for Developers, configure the WhatsApp webhook callback URL as `https://your-vercel-domain.vercel.app/api/whatsapp`, use the same verification token, and subscribe to the `messages` field. The WhatsApp number must be registered in a Meta Business account and cannot be connected using only a normal personal WhatsApp account.
