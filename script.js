@@ -8,6 +8,7 @@ const WORKBOOK_SOURCES = [
 const services = [];
 const faqs = [];
 let selectedFilter = 'All';
+let dataReady = Promise.resolve();
 
 const clean = value => String(value ?? '').trim();
 const normalize = value => clean(value).toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
@@ -72,14 +73,16 @@ async function loadLiveData() {
     services.splice(0, services.length);
     faqs.splice(0, faqs.length);
     let loaded = false;
-    for (const source of sources) {
+    for (const [index, source] of sources.entries()) {
       try {
         const response = await fetch(source, { mode: 'cors', credentials: 'include', cache: 'no-store' });
         if (!response.ok) continue;
         mergeData(await parseResponse(response));
         loaded = true;
-        break;
-      } catch (sourceError) { /* Try the next configured source. */ }
+        if (window.VINAR_DATA_URL || (index >= 1 && loaded)) break;
+      } catch (sourceError) {
+        if (index >= 1 && loaded) break;
+      }
     }
     if (!loaded) throw new Error('No workbook source was accessible');
     document.querySelector('#dataStatus').textContent = 'Data updated just now';
@@ -105,10 +108,11 @@ function answer(question) {
   return { text: `I found ${serviceMatches.length === 1 ? 'this option' : 'these options'} in Vinar’s live directory:`, cards: serviceMatches };
 }
 
-function send(question) {
+async function send(question) {
   if (!question.trim()) return;
   const conversation = document.querySelector('#conversation');
   conversation.insertAdjacentHTML('beforeend', `<div class="message user">${escapeHtml(question)}</div>`);
+  await dataReady;
   const result = answer(question);
   const cards = result.cards ? `<div class="answer-card">${result.cards.map(service => `<div><strong>${escapeHtml(service.name)}</strong><small>${escapeHtml(service.category)} · ${escapeHtml(service.duration)} · ${escapeHtml(service.availability)}</small></div><div><b>${escapeHtml(money(service.price))}</b><span>${escapeHtml(service.offer || (service.slots === '0' ? 'Fully booked this week' : `${service.slots || 'Check'} slots this week`))}</span></div>`).join('')}</div>` : '';
   setTimeout(() => { conversation.insertAdjacentHTML('beforeend', `<div class="message bot"><strong>Vinar Travel</strong><br>${escapeHtml(result.text)}${cards}</div>`); conversation.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 180);
@@ -118,4 +122,4 @@ document.querySelector('#chatForm').addEventListener('submit', event => { event.
 document.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => send(button.dataset.question)));
 document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => { selectedFilter = button.dataset.filter; document.querySelectorAll('.filter').forEach(item => item.classList.toggle('active', item === button)); renderServices(); }));
 document.querySelector('#refreshData').addEventListener('click', loadLiveData);
-loadLiveData();
+dataReady = loadLiveData();
