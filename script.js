@@ -194,7 +194,10 @@ function weatherDescription(code) {
 
 async function answerWithGemini(question) {
   try {
-    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question }) });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question }), signal: controller.signal });
+    clearTimeout(timeout);
     if (!response.ok) return null;
     const result = await response.json();
     return result.text ? { text: result.text } : null;
@@ -209,7 +212,9 @@ async function send(question) {
   conversation.replaceChildren();
   conversation.insertAdjacentHTML('beforeend', `<div class="message user">${escapeHtml(question)}</div>`);
   await dataReady;
-  const result = (await answerWithGemini(question)) || answer(question);
+  const localResult = answer(question);
+  const result = (await answerWithGemini(question)) || localResult;
+  if (!result.cards && localResult.cards && result.text) result.cards = localResult.cards;
   const cards = result.cards ? `<div class="answer-card">${result.cards.map(service => `<div><strong>${escapeHtml(service.name)}</strong><small>${escapeHtml(service.category)} · ${escapeHtml(service.duration)} · ${escapeHtml(service.availability)}</small></div><div><b>${escapeHtml(money(service.price))}</b><span>${escapeHtml(service.offer || (service.slots === '0' ? 'Fully booked this week' : `${service.slots || 'Check'} slots this week`))}</span></div>`).join('')}</div>` : '';
   setTimeout(() => { conversation.insertAdjacentHTML('beforeend', `<div class="message bot"><strong>Vinar Travel</strong><br>${escapeHtml(result.text)}${cards}</div>`); conversation.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 180);
 }
