@@ -130,6 +130,48 @@ function answer(question) {
   return { text: `I found ${serviceMatches.length === 1 ? 'this option' : 'these options'} in Vinar’s live directory:`, cards: serviceMatches };
 }
 
+async function loadCurrency() {
+  const amount = Number(document.querySelector('#currencyAmount').value) || 0;
+  const currency = document.querySelector('#currencyCode').value;
+  const output = document.querySelector('#currencyResult');
+  output.textContent = 'Checking live rate...';
+  try {
+    const response = await fetch('https://open.er-api.com/v6/latest/USD');
+    const data = await response.json();
+    output.textContent = `${amount.toLocaleString()} USD ≈ ${(amount * data.rates[currency]).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${currency}`;
+  } catch (error) {
+    output.textContent = 'Live rate unavailable';
+  }
+}
+
+async function loadWeather() {
+  const destination = document.querySelector('#destinationInput').value.trim();
+  const output = document.querySelector('#weatherResult');
+  if (!destination) return;
+  output.textContent = 'Finding destination...';
+  try {
+    const locationResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(destination)}&count=1&language=en&format=json`);
+    const location = (await locationResponse.json()).results?.[0];
+    if (!location) throw new Error('Destination not found');
+    const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`);
+    const weather = await weatherResponse.json();
+    output.innerHTML = `<strong>${escapeHtml(location.name)}</strong><span>${Math.round(weather.current.temperature_2m)}°C · ${weatherDescription(weather.current.weather_code)}</span>`;
+  } catch (error) {
+    output.textContent = 'Weather unavailable for this destination';
+  }
+}
+
+function weatherDescription(code) {
+  if (code === 0) return 'Clear sky';
+  if ([1, 2, 3].includes(code)) return 'Partly cloudy';
+  if ([45, 48].includes(code)) return 'Foggy';
+  if ([51, 53, 55, 56, 57].includes(code)) return 'Light rain';
+  if ([61, 63, 65, 80, 81, 82].includes(code)) return 'Rainy';
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return 'Snowy';
+  if ([95, 96, 99].includes(code)) return 'Thunderstorms';
+  return 'Check local forecast';
+}
+
 async function answerWithGemini(question) {
   try {
     const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question }) });
@@ -156,4 +198,9 @@ document.querySelector('#chatForm').addEventListener('submit', event => { event.
 document.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => send(button.dataset.question)));
 document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => { selectedFilter = button.dataset.filter; document.querySelectorAll('.filter').forEach(item => item.classList.toggle('active', item === button)); renderServices(); }));
 document.querySelector('#refreshData').addEventListener('click', loadLiveData);
+document.querySelector('#currencyAmount').addEventListener('input', loadCurrency);
+document.querySelector('#currencyCode').addEventListener('change', loadCurrency);
+document.querySelector('#weatherButton').addEventListener('click', loadWeather);
+document.querySelector('#destinationInput').addEventListener('keydown', event => { if (event.key === 'Enter') loadWeather(); });
 dataReady = loadLiveData();
+loadCurrency();

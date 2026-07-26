@@ -16,7 +16,17 @@
         <div class="brand"><div class="brand-mark">V</div><div><strong>Vinar</strong><span>TRAVEL & TOURISM</span></div></div>
         <div class="sidebar-label">Workspace</div>
         <button class="nav-item active"><span class="nav-icon">✦</span> Ask Vinar</button>
-        <button class="nav-item" id="servicesNav"><span class="nav-icon">▤</span> Services <span class="nav-count" id="navCount">—</span></button>
+        <div class="live-tools-label"><span>LIVE TOOLS</span><i></i></div>
+        <section class="tool-card currency-tool">
+          <div class="tool-heading"><span class="tool-icon">↔</span><div><strong>Currency exchange</strong><small>Public live rate</small></div></div>
+          <div class="currency-fields"><input id="currencyAmount" type="number" min="0" value="100" aria-label="Amount" /><select id="currencyCode" aria-label="Currency"><option value="SDG">SDG</option><option value="AED">AED</option><option value="EGP">EGP</option><option value="TRY">TRY</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
+          <div class="tool-result" id="currencyResult">Checking live rate...</div>
+        </section>
+        <section class="tool-card weather-tool">
+          <div class="tool-heading"><span class="tool-icon">☼</span><div><strong>Destination weather</strong><small>Powered by Open-Meteo</small></div></div>
+          <div class="weather-search"><input id="destinationInput" autocomplete="off" placeholder="Try Zanzibar" aria-label="Destination" /><button id="weatherButton" type="button">→</button></div>
+          <div class="tool-result weather-result" id="weatherResult">Search a destination</div>
+        </section>
         <div class="sidebar-label recent-label">Popular questions</div>
         <button class="chat-history" data-question="What honeymoon packages are available?"><span>Honeymoon packages</span><small>Explore options</small></button>
         <button class="chat-history" data-question="What documents do I need for a visa?"><span>Visa documents</span><small>Get a checklist</small></button>
