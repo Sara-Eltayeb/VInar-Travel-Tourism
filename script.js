@@ -1,4 +1,7 @@
+const GOOGLE_SHEET_ID = '1KZR98ZMug3CP6-ztfJ9LdSddJNXy5a8-NJW_8SMdSCs';
 const WORKBOOK_SOURCES = [
+  `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&gid=2056820402`,
+  `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=FAQ`,
   'https://1drv.ms/x/c/19b2686eee879b15/IQD1elhkALFnRK8yfklM69vkAcRaUh4T97Qn9he6cGXJZQQ?e=Ve8lBx',
   'https://studentncirl-my.sharepoint.com/:x:/r/personal/x25134680_student_ncirl_ie/_layouts/15/doc2.aspx?action=edit&sourcedoc=%7Baa91b898-7ebf-43d1-9768-359c3b5ff4e7%7D&wdExp=TEAMS-TREATMENT&web=1&TeamsCID=e2df6189-66f5-4c6a-b36d-4ce29808e0c6'
 ];
@@ -32,17 +35,26 @@ function renderServices() {
   document.querySelector('#serviceList').innerHTML = visible.slice(0, 8).map(service => `<div class="service-row"><div><strong>${escapeHtml(service.name)}</strong><small>${escapeHtml(service.category)} · ${escapeHtml(service.duration)}</small></div><div><div class="price">${escapeHtml(money(service.price))}</div><div class="tag">${escapeHtml(service.slots || 'Check slots')}</div></div></div>`).join('') || '<div class="empty-state">No live services are available to display yet.</div>';
 }
 
-function setData(data) {
-  services.splice(0, services.length, ...(data.services || []).map(rowToService));
-  faqs.splice(0, faqs.length, ...(data.faqs || []));
+function mergeData(data) {
+  services.push(...(data.services || []).map(rowToService));
+  faqs.push(...(data.faqs || []));
 }
 
 async function parseResponse(response) {
   const contentType = response.headers.get('content-type') || '';
-  if (contentType.includes('json')) return response.json();
+  const payload = await response.text();
+  if (payload.includes('google.visualization.Query.setResponse')) {
+    const start = payload.indexOf('(');
+    const end = payload.lastIndexOf(')');
+    const table = JSON.parse(payload.slice(start + 1, end)).table;
+    const headers = table.cols.map(column => clean(column.label).toLowerCase().replace(/\s+/g, '_'));
+    const rows = table.rows.map(row => row.c.map(cell => cell ? clean(cell.f ?? cell.v) : ''));
+    return rowsToData(headers.some(header => header === 'service_id' || header === 'faq_id') ? [headers, ...rows] : rows);
+  }
+  if (contentType.includes('json')) return JSON.parse(payload);
   if (contentType.includes('csv')) return rowsToData((await response.text()).trim().split(/\r?\n/).map(line => line.split(',')));
   if (typeof XLSX === 'undefined') throw new Error('XLSX parser unavailable');
-  const workbook = XLSX.read(await response.arrayBuffer(), { type: 'array' });
+  const workbook = XLSX.read(await (await fetch(response.url)).arrayBuffer(), { type: 'array' });
   const data = { services: [], faqs: [] };
   workbook.SheetNames.forEach(sheetName => {
     const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, defval: '' });
@@ -57,12 +69,14 @@ async function loadLiveData() {
   document.querySelector('#syncStatus').textContent = 'Connecting';
   try {
     const sources = window.VINAR_DATA_URL ? [window.VINAR_DATA_URL] : WORKBOOK_SOURCES;
+    services.splice(0, services.length);
+    faqs.splice(0, faqs.length);
     let loaded = false;
     for (const source of sources) {
       try {
         const response = await fetch(source, { mode: 'cors', credentials: 'include', cache: 'no-store' });
         if (!response.ok) continue;
-        setData(await parseResponse(response));
+        mergeData(await parseResponse(response));
         loaded = true;
         break;
       } catch (sourceError) { /* Try the next configured source. */ }

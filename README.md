@@ -6,7 +6,11 @@ English-first Vinar travel assistant for GitHub Pages.
 
 The interface is intentionally empty until it can read the connected source. This prevents it from inventing prices, offers, availability, or FAQ answers.
 
-The app first targets the new OneDrive workbook here:
+The app now targets the public Google Sheet first:
+
+`https://docs.google.com/spreadsheets/d/1KZR98ZMug3CP6-ztfJ9LdSddJNXy5a8-NJW_8SMdSCs/edit?gid=2056820402`
+
+It reads the `Services & Packages` data through the sheet's GViz endpoint and separately reads the `FAQ` tab. The OneDrive workbook remains configured as a fallback:
 
 `https://1drv.ms/x/c/19b2686eee879b15/IQD1elhkALFnRK8yfklM69vkAcRaUh4T97Qn9he6cGXJZQQ?e=Ve8lBx`
 
