@@ -133,6 +133,7 @@ function answer(question) {
 async function send(question) {
   if (!question.trim()) return;
   const conversation = document.querySelector('#conversation');
+  conversation.replaceChildren();
   conversation.insertAdjacentHTML('beforeend', `<div class="message user">${escapeHtml(question)}</div>`);
   await dataReady;
   const result = answer(question);
