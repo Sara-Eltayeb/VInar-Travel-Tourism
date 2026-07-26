@@ -75,7 +75,7 @@ async function loadLiveData() {
     let loaded = false;
     for (const [index, source] of sources.entries()) {
       try {
-        const response = await fetch(source, { mode: 'cors', credentials: 'include', cache: 'no-store' });
+        const response = await fetch(source, { mode: 'cors', credentials: 'omit', cache: 'no-store' });
         if (!response.ok) continue;
         mergeData(await parseResponse(response));
         loaded = true;
