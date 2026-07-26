@@ -26,7 +26,7 @@
       <main class="main-content">
         <header class="topbar"><button class="mobile-menu" id="mobileMenu">☰</button><div class="breadcrumb"><span>Vinar Travel</span><b>/</b><strong>Ask Vinar</strong></div><div class="top-actions"><span class="updated"><i></i> <span id="dataStatus">Connecting to live data</span></span><button class="icon-button">?</button></div></header>
         <section class="chat-area">
-          <div class="welcome-block"><div class="eyebrow"><span>✦</span> Your travel advisor</div><h1>Where would you like<br /><em>to go next?</em></h1><p>Ask about flights, visas, hotels, Umrah, honeymoons, tours or transfers. I’ll check Vinar’s live services and FAQ data.</p></div>
+          <div class="welcome-block"><div class="eyebrow"><span>✦</span> Your travel advisor</div><h1>Make your next trip<br /><em>feel effortless.</em></h1><p>Ask about flights, visas, hotels, Umrah, honeymoons, tours or transfers. I’ll check Vinar’s live services and FAQ data.</p></div>
           <div class="suggestions"><button data-question="What travel services do you offer?">✈ <span>Browse services</span><b>↗</b></button><button data-question="What honeymoon packages are available?">♡ <span>Honeymoon packages</span><b>↗</b></button><button data-question="Do you have Umrah packages?">☾ <span>Umrah packages</span><b>↗</b></button><button data-question="What documents do I need for a visa?">▣ <span>Visa help</span><b>↗</b></button></div>
           <div class="conversation" id="conversation"></div>
           <form class="composer" id="chatForm"><input id="questionInput" autocomplete="off" placeholder="Ask about your next trip..." /><button type="submit" aria-label="Send">↑</button><div class="composer-hint">Powered by Vinar’s live services and FAQ data <span>⌘ ↵</span></div></form>
@@ -36,6 +36,7 @@
 
       <aside class="insights"><div class="insights-heading"><div><span class="eyebrow">LIVE DIRECTORY</span><h2>Vinar services</h2></div><button class="close-insights">×</button></div><div class="data-pulse"><span class="pulse-dot"></span><div><strong id="serviceCount">Loading services</strong><small>From the connected directory</small></div><span class="refresh" id="refreshData">↻</span></div><div class="filter-row"><button class="filter active" data-filter="All">All</button><button class="filter" data-filter="Flight Booking">Flights</button><button class="filter" data-filter="Visa Services">Visas</button><button class="filter" data-filter="International Tourism">Tours</button></div><div class="service-list" id="serviceList"></div><button class="view-all" id="viewAll">View all services <span>→</span></button><div class="sheet-note"><span>▣</span><div><strong>Connected to live data</strong><small>Services & Packages · FAQ</small></div></div></aside>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
