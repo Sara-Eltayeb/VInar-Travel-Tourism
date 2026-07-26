@@ -1,0 +1,31 @@
+name: Sync Vinar data
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Sync Google Sheet tabs
+        run: node sync-data.mjs
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          if git diff --cached --quiet; then
+            echo "No data changes"
+            exit 0
+          fi
+          git commit -m "Sync Vinar services and FAQs"
+          git push

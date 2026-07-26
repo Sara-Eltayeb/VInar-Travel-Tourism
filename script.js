@@ -1,5 +1,6 @@
 const GOOGLE_SHEET_ID = '1KZR98ZMug3CP6-ztfJ9LdSddJNXy5a8-NJW_8SMdSCs';
 const WORKBOOK_SOURCES = [
+  'data.json',
   `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&gid=2056820402`,
   `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=FAQ`,
   'https://1drv.ms/x/c/19b2686eee879b15/IQD1elhkALFnRK8yfklM69vkAcRaUh4T97Qn9he6cGXJZQQ?e=Ve8lBx',
@@ -79,7 +80,7 @@ async function loadLiveData() {
         if (!response.ok) continue;
         mergeData(await parseResponse(response));
         loaded = true;
-        if (window.VINAR_DATA_URL || (index >= 1 && loaded)) break;
+        if (window.VINAR_DATA_URL || source === 'data.json' || (index >= 2 && loaded)) break;
       } catch (sourceError) {
         if (index >= 1 && loaded) break;
       }

@@ -1,0 +1,900 @@
+{
+  "services": [
+    {
+      "service_id": "FIN-001",
+      "category": "Flight Booking",
+      "type": "Domestic",
+      "price_usd": "90",
+      "duration": "1 day",
+      "requires_booking": "Yes",
+      "availability": "Sun-Thu",
+      "slots_this_week": "6",
+      "special_offer": "",
+      "service_name": "Domestic flight ticketing",
+      "description": "Booking of domestic flights across Sudan (Khartoum, Port Sudan, El Obeid, Kassala and more)."
+    },
+    {
+      "service_id": "FIN-002",
+      "category": "Flight Booking",
+      "type": "International",
+      "price_usd": "25",
+      "duration": "1 day",
+      "requires_booking": "Yes",
+      "availability": "Sun-Thu",
+      "slots_this_week": "9",
+      "special_offer": "5% off for early booking",
+      "service_name": "International flight ticketing",
+      "description": "Booking of international flights on all major airlines with fare comparison and best-price search."
+    },
+    {
+      "service_id": "FIN-003",
+      "category": "Flight Booking",
+      "type": "International",
+      "price_usd": "15",
+      "duration": "1 day",
+      "requires_booking": "No",
+      "availability": "Sun-Thu",
+      "slots_this_week": "10",
+      "special_offer": "",
+      "service_name": "Flight itinerary change / rebooking",
+      "description": "Assistance changing dates, routes or airlines on an existing booking."
+    },
+    {
+      "service_id": "FIN-004",
+      "category": "Flight Booking",
+      "type": "International",
+      "price_usd": "20",
+      "duration": "1 day",
+      "requires_booking": "No",
+      "availability": "Sun-Thu",
+      "slots_this_week": "8",
+      "special_offer": "",
+      "service_name": "Group flight booking (10+ pax)",
+      "description": "Coordinated group ticketing with block seating for teams, families and delegations."
+    },
+    {
+      "service_id": "FIN-005",
+      "category": "Visa Services",
+      "type": "Tourist visa",
+      "price_usd": "60",
+      "duration": "3-5 days",
+      "requires_booking": "Yes",
+      "availability": "Sat-Thu",
+      "slots_this_week": "7",
+      "special_offer": "",
+      "service_name": "Tourist visa assistance",
+      "description": "Document review, application submission and appointment scheduling for tourist visas."
+    },
+    {
+      "service_id": "FIN-006",
+      "category": "Visa Services",
+      "type": "Business visa",
+      "price_usd": "80",
+      "duration": "3-7 days",
+      "requires_booking": "Yes",
+      "availability": "Sat-Thu",
+      "slots_this_week": "5",
+      "special_offer": "",
+      "service_name": "Business visa assistance",
+      "description": "Full support for business visa applications including invitation letter guidance."
+    },
+    {
+      "service_id": "FIN-007",
+      "category": "Visa Services",
+      "type": "Umrah/Hajj visa",
+      "price_usd": "120",
+      "duration": "5-10 days",
+      "requires_booking": "Yes",
+      "availability": "Sat-Thu",
+      "slots_this_week": "4",
+      "special_offer": "Bundled free with Umrah package",
+      "service_name": "Umrah & Hajj visa processing",
+      "description": "End-to-end visa processing for Umrah and Hajj travellers, coordinated with the Saudi authorities."
+    },
+    {
+      "service_id": "FIN-008",
+      "category": "Visa Services",
+      "type": "Student visa",
+      "price_usd": "70",
+      "duration": "7-14 days",
+      "requires_booking": "Yes",
+      "availability": "Sat-Thu",
+      "slots_this_week": "3",
+      "special_offer": "",
+      "service_name": "Student visa assistance",
+      "description": "Guidance and document preparation for study-abroad visa applications."
+    },
+    {
+      "service_id": "FIN-009",
+      "category": "Visa Services",
+      "type": "Schengen visa",
+      "price_usd": "95",
+      "duration": "10-15 days",
+      "requires_booking": "Yes",
+      "availability": "Sat-Thu",
+      "slots_this_week": "2",
+      "special_offer": "",
+      "service_name": "Schengen visa assistance",
+      "description": "Appointment booking, document checklist and application support for Schengen countries."
+    },
+    {
+      "service_id": "FIN-010",
+      "category": "Hotel Booking",
+      "type": "Domestic",
+      "price_usd": "0",
+      "duration": "Per stay",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "9",
+      "special_offer": "No booking fee this month",
+      "service_name": "Hotel booking - Khartoum",
+      "description": "Reservation of hotels and serviced apartments in Khartoum, all star ratings."
+    },
+    {
+      "service_id": "FIN-011",
+      "category": "Hotel Booking",
+      "type": "Domestic",
+      "price_usd": "0",
+      "duration": "Per stay",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "6",
+      "special_offer": "",
+      "service_name": "Hotel booking - Port Sudan",
+      "description": "Reservation of beachfront and city hotels in Port Sudan."
+    },
+    {
+      "service_id": "FIN-012",
+      "category": "Hotel Booking",
+      "type": "International",
+      "price_usd": "0",
+      "duration": "Per stay",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "8",
+      "special_offer": "10% off for stays of 5+ nights",
+      "service_name": "Hotel booking - international",
+      "description": "Worldwide hotel reservations with rate comparison across trusted partners."
+    },
+    {
+      "service_id": "FIN-013",
+      "category": "Hotel Booking",
+      "type": "Domestic",
+      "price_usd": "0",
+      "duration": "Per stay",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "7",
+      "special_offer": "",
+      "service_name": "Hotel reservation - Wad Madani",
+      "description": "Reservation of hotels in Wad Madani for business or leisure stays."
+    },
+    {
+      "service_id": "FIN-014",
+      "category": "Hotel Booking",
+      "type": "Domestic",
+      "price_usd": "0",
+      "duration": "Per stay",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "5",
+      "special_offer": "",
+      "service_name": "Hotel reservation - honeymoon suite",
+      "description": "Booking of honeymoon and deluxe suites with romantic room setup on request."
+    },
+    {
+      "service_id": "FIN-015",
+      "category": "Hotel Booking",
+      "type": "International",
+      "price_usd": "0",
+      "duration": "Per stay",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "6",
+      "special_offer": "Free breakfast on select hotels",
+      "service_name": "Hotel reservation - resort & beach hotels",
+      "description": "Reservation of beach resorts abroad, ideal for honeymoons and family holidays."
+    },
+    {
+      "service_id": "FIN-016",
+      "category": "Hotel Booking",
+      "type": "International",
+      "price_usd": "0",
+      "duration": "Per stay",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "5",
+      "special_offer": "",
+      "service_name": "Umrah accommodation (Makkah/Madinah)",
+      "description": "Hotel booking close to Al-Haram for Umrah and Hajj pilgrims, family and group rooms available."
+    },
+    {
+      "service_id": "FIN-017",
+      "category": "Umrah & Hajj",
+      "type": "Economy",
+      "price_usd": "950",
+      "duration": "9 days",
+      "requires_booking": "Yes",
+      "availability": "Year-round",
+      "slots_this_week": "3",
+      "special_offer": "",
+      "service_name": "Umrah package - Economy",
+      "description": "Flights, visa, 3-star hotel and Ziyarah tour for Makkah and Madinah."
+    },
+    {
+      "service_id": "FIN-018",
+      "category": "Umrah & Hajj",
+      "type": "Standard",
+      "price_usd": "1350",
+      "duration": "12 days",
+      "requires_booking": "Yes",
+      "availability": "Year-round",
+      "slots_this_week": "4",
+      "special_offer": "Family discount for 4+ travelling together",
+      "service_name": "Umrah package - Standard",
+      "description": "Flights, visa, 4-star hotel near Al-Haram, transport and guided Ziyarah tour."
+    },
+    {
+      "service_id": "FIN-019",
+      "category": "Umrah & Hajj",
+      "type": "Premium",
+      "price_usd": "2100",
+      "duration": "14 days",
+      "requires_booking": "Yes",
+      "availability": "Year-round",
+      "slots_this_week": "2",
+      "special_offer": "",
+      "service_name": "Umrah package - Premium",
+      "description": "Flights, visa, 5-star hotel with Haram view, private transport and full-board meals."
+    },
+    {
+      "service_id": "FIN-020",
+      "category": "Umrah & Hajj",
+      "type": "Ramadan special",
+      "price_usd": "1800",
+      "duration": "10 days",
+      "requires_booking": "Yes",
+      "availability": "Ramadan only",
+      "slots_this_week": "0",
+      "special_offer": "Ramadan early-bird pricing",
+      "service_name": "Ramadan Umrah package",
+      "description": "Umrah travel timed for the last ten nights of Ramadan, including Itikaf support."
+    },
+    {
+      "service_id": "FIN-021",
+      "category": "Honeymoon Packages",
+      "type": "Domestic",
+      "price_usd": "550",
+      "duration": "3 days",
+      "requires_booking": "Yes",
+      "availability": "Weekly",
+      "slots_this_week": "3",
+      "special_offer": "",
+      "service_name": "Honeymoon getaway - Port Sudan & Suakin",
+      "description": "Romantic beach escape with private dinner, boat trip and a visit to historic Suakin island for couples."
+    },
+    {
+      "service_id": "FIN-022",
+      "category": "Honeymoon Packages",
+      "type": "International",
+      "price_usd": "1600",
+      "duration": "6 days",
+      "requires_booking": "Yes",
+      "availability": "Seasonal",
+      "slots_this_week": "3",
+      "special_offer": "Free room upgrade on request",
+      "service_name": "Honeymoon package - Zanzibar",
+      "description": "Beachfront resort stay with flights, a couples' spa session and a sunset cruise."
+    },
+    {
+      "service_id": "FIN-023",
+      "category": "Honeymoon Packages",
+      "type": "International",
+      "price_usd": "1950",
+      "duration": "7 days",
+      "requires_booking": "Yes",
+      "availability": "Seasonal",
+      "slots_this_week": "2",
+      "special_offer": "",
+      "service_name": "Honeymoon package - Istanbul & Cappadocia",
+      "description": "Flights, boutique hotel stays, a hot air balloon ride and a private city tour for two."
+    },
+    {
+      "service_id": "FIN-024",
+      "category": "Honeymoon Packages",
+      "type": "International",
+      "price_usd": "2600",
+      "duration": "7 days",
+      "requires_booking": "Yes",
+      "availability": "Seasonal",
+      "slots_this_week": "2",
+      "special_offer": "Complimentary honeymoon cake & room decoration",
+      "service_name": "Honeymoon package - Maldives",
+      "description": "All-inclusive overwater villa stay with flights and a romantic dinner on the beach."
+    },
+    {
+      "service_id": "FIN-025",
+      "category": "Umrah & Hajj",
+      "type": "Hajj",
+      "price_usd": "4200",
+      "duration": "21 days",
+      "requires_booking": "Yes",
+      "availability": "Hajj season",
+      "slots_this_week": "1",
+      "special_offer": "",
+      "service_name": "Hajj package",
+      "description": "Complete Hajj package including visa, flights, Mina/Arafat accommodation and guided rites support."
+    },
+    {
+      "service_id": "FIN-026",
+      "category": "Domestic Tourism",
+      "type": "Cultural",
+      "price_usd": "180",
+      "duration": "2 days",
+      "requires_booking": "Yes",
+      "availability": "Fri-Sat",
+      "slots_this_week": "6",
+      "special_offer": "",
+      "service_name": "Meroe Pyramids day tour",
+      "description": "Guided day trip to the Meroe Pyramids and the Royal City of Naqa with lunch included."
+    },
+    {
+      "service_id": "FIN-027",
+      "category": "Domestic Tourism",
+      "type": "Cultural",
+      "price_usd": "320",
+      "duration": "3 days",
+      "requires_booking": "Yes",
+      "availability": "Weekly",
+      "slots_this_week": "4",
+      "special_offer": "20% off for students",
+      "service_name": "Nubian villages & Karima tour",
+      "description": "Journey to Karima, Jebel Barkal and Nubian villages with local guesthouse stays."
+    },
+    {
+      "service_id": "FIN-028",
+      "category": "Domestic Tourism",
+      "type": "Beach & Sea",
+      "price_usd": "450",
+      "duration": "4 days",
+      "requires_booking": "Yes",
+      "availability": "Weekly",
+      "slots_this_week": "5",
+      "special_offer": "",
+      "service_name": "Port Sudan & Red Sea getaway",
+      "description": "Coastal escape with beach time, boat trip and a visit to historic Suakin island."
+    },
+    {
+      "service_id": "FIN-029",
+      "category": "Domestic Tourism",
+      "type": "Adventure",
+      "price_usd": "600",
+      "duration": "5 days",
+      "requires_booking": "Yes",
+      "availability": "Monthly",
+      "slots_this_week": "3",
+      "special_offer": "Early bird 15% off",
+      "service_name": "Red Sea diving expedition",
+      "description": "Guided scuba and snorkelling trip to Sudan's Red Sea reefs, gear included for certified divers."
+    },
+    {
+      "service_id": "FIN-030",
+      "category": "Domestic Tourism",
+      "type": "Nature",
+      "price_usd": "150",
+      "duration": "1 day",
+      "requires_booking": "No",
+      "availability": "Fri-Sat",
+      "slots_this_week": "8",
+      "special_offer": "",
+      "service_name": "Khartoum city & confluence tour",
+      "description": "City tour covering the Nile confluence, Omdurman souq and the National Museum."
+    },
+    {
+      "service_id": "FIN-031",
+      "category": "Domestic Tourism",
+      "type": "Family",
+      "price_usd": "260",
+      "duration": "2 days",
+      "requires_booking": "Yes",
+      "availability": "Weekly",
+      "slots_this_week": "5",
+      "special_offer": "",
+      "service_name": "Sennar & Blue Nile family trip",
+      "description": "Relaxed family-friendly weekend along the Blue Nile with picnic and boat ride."
+    },
+    {
+      "service_id": "FIN-032",
+      "category": "International Tourism",
+      "type": "Cultural",
+      "price_usd": "890",
+      "duration": "6 days",
+      "requires_booking": "Yes",
+      "availability": "Monthly",
+      "slots_this_week": "4",
+      "special_offer": "",
+      "service_name": "Cairo & Nile cruise package",
+      "description": "Flights, hotel, guided Pyramids and Egyptian Museum tour plus a 3-night Nile cruise."
+    },
+    {
+      "service_id": "FIN-033",
+      "category": "International Tourism",
+      "type": "City break",
+      "price_usd": "760",
+      "duration": "5 days",
+      "requires_booking": "Yes",
+      "availability": "Monthly",
+      "slots_this_week": "6",
+      "special_offer": "10% off in low season",
+      "service_name": "Istanbul city break",
+      "description": "Flights, 4-star hotel, Bosphorus cruise and Old City guided tour."
+    },
+    {
+      "service_id": "FIN-034",
+      "category": "International Tourism",
+      "type": "City break",
+      "price_usd": "1150",
+      "duration": "6 days",
+      "requires_booking": "Yes",
+      "availability": "Monthly",
+      "slots_this_week": "3",
+      "special_offer": "",
+      "service_name": "Dubai shopping & leisure package",
+      "description": "Flights, hotel, desert safari and Burj Khalifa tickets included."
+    },
+    {
+      "service_id": "FIN-035",
+      "category": "International Tourism",
+      "type": "Nature",
+      "price_usd": "1050",
+      "duration": "7 days",
+      "requires_booking": "Yes",
+      "availability": "Seasonal",
+      "slots_this_week": "2",
+      "special_offer": "",
+      "service_name": "Addis Ababa & Ethiopian highlands tour",
+      "description": "Cultural and nature tour covering Addis Ababa, Lalibela's rock churches and the Simien highlands."
+    },
+    {
+      "service_id": "FIN-036",
+      "category": "International Tourism",
+      "type": "Family",
+      "price_usd": "1450",
+      "duration": "7 days",
+      "requires_booking": "Yes",
+      "availability": "Seasonal",
+      "slots_this_week": "3",
+      "special_offer": "Kids under 6 travel free",
+      "service_name": "Malaysia family package",
+      "description": "Kuala Lumpur and Langkawi family holiday with flights, hotel and theme-park tickets."
+    },
+    {
+      "service_id": "FIN-037",
+      "category": "Group Travel",
+      "type": "School trip",
+      "price_usd": "130",
+      "duration": "1 day",
+      "requires_booking": "Yes",
+      "availability": "School term",
+      "slots_this_week": "5",
+      "special_offer": "",
+      "service_name": "School educational trip",
+      "description": "Chaperoned day trip for school groups to Sudan's heritage and nature sites."
+    },
+    {
+      "service_id": "FIN-038",
+      "category": "Group Travel",
+      "type": "Conference",
+      "price_usd": "0",
+      "duration": "Custom",
+      "requires_booking": "Yes",
+      "availability": "Year-round",
+      "slots_this_week": "4",
+      "special_offer": "",
+      "service_name": "MICE & corporate travel management",
+      "description": "End-to-end planning for corporate delegations, conferences and incentive trips."
+    },
+    {
+      "service_id": "FIN-039",
+      "category": "Group Travel",
+      "type": "Wedding/Event",
+      "price_usd": "0",
+      "duration": "Custom",
+      "requires_booking": "Yes",
+      "availability": "Year-round",
+      "slots_this_week": "2",
+      "special_offer": "",
+      "service_name": "Destination event planning",
+      "description": "Travel and logistics coordination for weddings and family events abroad."
+    },
+    {
+      "service_id": "FIN-040",
+      "category": "Ground Services",
+      "type": "Airport transfer",
+      "price_usd": "25",
+      "duration": "Per trip",
+      "requires_booking": "No",
+      "availability": "24/7",
+      "slots_this_week": "10",
+      "special_offer": "",
+      "service_name": "Airport pickup & drop-off",
+      "description": "Private transfer between the airport and your hotel or home in Khartoum."
+    },
+    {
+      "service_id": "FIN-041",
+      "category": "Ground Services",
+      "type": "Car rental",
+      "price_usd": "40",
+      "duration": "Per day",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "7",
+      "special_offer": "Weekly rentals save 10%",
+      "service_name": "Car rental - sedan",
+      "description": "Self-drive or chauffeured sedan rental across Sudan."
+    },
+    {
+      "service_id": "FIN-042",
+      "category": "Ground Services",
+      "type": "Car rental",
+      "price_usd": "100",
+      "duration": "Per day",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "3",
+      "special_offer": "",
+      "service_name": "Car reservation - luxury/wedding car",
+      "description": "Chauffeur-driven luxury car reservation for honeymoon transfers, weddings and special occasions."
+    },
+    {
+      "service_id": "FIN-043",
+      "category": "Ground Services",
+      "type": "Car rental",
+      "price_usd": "55",
+      "duration": "Per day",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "5",
+      "special_offer": "",
+      "service_name": "Car reservation - minivan (7-seater)",
+      "description": "Minivan rental suited for families and small groups travelling together."
+    },
+    {
+      "service_id": "FIN-044",
+      "category": "Ground Services",
+      "type": "Car rental",
+      "price_usd": "70",
+      "duration": "Per day",
+      "requires_booking": "Yes",
+      "availability": "Daily",
+      "slots_this_week": "4",
+      "special_offer": "",
+      "service_name": "Car rental - SUV / 4x4",
+      "description": "4x4 rental suited for desert and long-distance travel, chauffeur available."
+    },
+    {
+      "service_id": "FIN-045",
+      "category": "Travel Support",
+      "type": "Insurance",
+      "price_usd": "35",
+      "duration": "Per trip",
+      "requires_booking": "No",
+      "availability": "Daily",
+      "slots_this_week": "9",
+      "special_offer": "",
+      "service_name": "Travel insurance",
+      "description": "Medical and trip-protection insurance for domestic and international travel."
+    },
+    {
+      "service_id": "FIN-046",
+      "category": "Travel Support",
+      "type": "Documentation",
+      "price_usd": "20",
+      "duration": "1-2 days",
+      "requires_booking": "No",
+      "availability": "Sat-Thu",
+      "slots_this_week": "6",
+      "special_offer": "",
+      "service_name": "Passport renewal assistance",
+      "description": "Guidance and appointment support for passport renewal and new applications."
+    },
+    {
+      "service_id": "FIN-047",
+      "category": "Travel Support",
+      "type": "Currency",
+      "price_usd": "0",
+      "duration": "Same day",
+      "requires_booking": "No",
+      "availability": "Sat-Thu",
+      "slots_this_week": "8",
+      "special_offer": "",
+      "service_name": "Foreign currency guidance",
+      "description": "Advice on exchange options and rates for travellers heading abroad."
+    },
+    {
+      "service_id": "FIN-048",
+      "category": "Travel Support",
+      "type": "Consultation",
+      "price_usd": "0",
+      "duration": "30 min",
+      "requires_booking": "Yes",
+      "availability": "Sat-Thu",
+      "slots_this_week": "10",
+      "special_offer": "Free for all customers",
+      "service_name": "Free travel planning consultation",
+      "description": "One-on-one session with a Finar travel advisor to plan your trip and budget."
+    }
+  ],
+  "faqs": [
+    {
+      "faq_id": "FAQ-001",
+      "category": "General",
+      "question": "What is Finar?",
+      "answer": "Finar (فينار) is a Sudanese travel and tourism agency offering flight and hotel booking, visa assistance, Umrah & Hajj packages, domestic and international tour packages, and full travel support."
+    },
+    {
+      "faq_id": "FAQ-002",
+      "category": "General",
+      "question": "What services does Finar offer?",
+      "answer": "Flight booking, hotel booking, visa services, Umrah & Hajj packages, domestic tourism packages, international tour packages, group and corporate travel, airport transfers, car rental, travel insurance and free travel consultations."
+    },
+    {
+      "faq_id": "FAQ-003",
+      "category": "General",
+      "question": "What are your working hours?",
+      "answer": "Our office is open Saturday to Thursday. Emergency airport transfer support is available 24/7. Exact hours for each service are shown in the 'availability' column of our services sheet."
+    },
+    {
+      "faq_id": "FAQ-004",
+      "category": "General",
+      "question": "How can I contact Finar?",
+      "answer": "You can reach us on +249 914 101 013 / 012, or message us directly on WhatsApp for a faster reply."
+    },
+    {
+      "faq_id": "FAQ-005",
+      "category": "General",
+      "question": "Do you have a physical office I can visit?",
+      "answer": "Yes, we welcome walk-in visits during working hours for consultations, document drop-off and payments."
+    },
+    {
+      "faq_id": "FAQ-006",
+      "category": "Booking & Payment",
+      "question": "How do I book a service or package?",
+      "answer": "Contact us by phone, WhatsApp, or visit our office. Our team will confirm availability, share the price, and guide you through booking and payment."
+    },
+    {
+      "faq_id": "FAQ-007",
+      "category": "Booking & Payment",
+      "question": "What payment methods do you accept?",
+      "answer": "We accept cash, bank transfer and mobile payment options. Payment methods may vary slightly by service; our team will confirm what's available at the time of booking."
+    },
+    {
+      "faq_id": "FAQ-008",
+      "category": "Booking & Payment",
+      "question": "Do I need to pay in full at the time of booking?",
+      "answer": "Most packages require a deposit to confirm your reservation, with the balance due before travel. Some services, such as visa processing, are paid in full upfront."
+    },
+    {
+      "faq_id": "FAQ-009",
+      "category": "Booking & Payment",
+      "question": "Can I get a receipt or invoice?",
+      "answer": "Yes, an official receipt or invoice is issued for every payment made to Finar."
+    },
+    {
+      "faq_id": "FAQ-010",
+      "category": "Booking & Payment",
+      "question": "Is there a booking fee?",
+      "answer": "Most services have no extra booking fee. Any applicable fee is shown transparently before you confirm payment."
+    },
+    {
+      "faq_id": "FAQ-011",
+      "category": "Cancellation & Refunds",
+      "question": "What is your cancellation policy?",
+      "answer": "Cancellation terms depend on the supplier (airline, hotel or package provider) and how close to departure you cancel. We'll always explain the exact terms before you book."
+    },
+    {
+      "faq_id": "FAQ-012",
+      "category": "Cancellation & Refunds",
+      "question": "Can I get a refund if I cancel my trip?",
+      "answer": "Refund eligibility depends on the airline, hotel or package terms. Visa fees and some processing costs are generally non-refundable once submitted."
+    },
+    {
+      "faq_id": "FAQ-013",
+      "category": "Cancellation & Refunds",
+      "question": "Can I change my travel dates after booking?",
+      "answer": "Yes, date changes are often possible for a fee set by the airline or hotel. Contact us as early as possible to check options."
+    },
+    {
+      "faq_id": "FAQ-014",
+      "category": "Flights",
+      "question": "Which airlines can I book through Finar?",
+      "answer": "We work with all major airlines operating in and out of Sudan, and can compare fares to find the best option for your route."
+    },
+    {
+      "faq_id": "FAQ-015",
+      "category": "Flights",
+      "question": "How far in advance should I book my flight?",
+      "answer": "We recommend booking at least 2-3 weeks in advance for the best fares, and earlier for peak seasons like Eid and summer holidays."
+    },
+    {
+      "faq_id": "FAQ-016",
+      "category": "Flights",
+      "question": "Can Finar book group flights for my family or delegation?",
+      "answer": "Yes, we handle group flight bookings of 10 or more passengers with coordinated seating."
+    },
+    {
+      "faq_id": "FAQ-017",
+      "category": "Hotels",
+      "question": "Can you book hotels outside Sudan?",
+      "answer": "Yes, we book hotels worldwide, comparing rates across our trusted partners to get you the best price."
+    },
+    {
+      "faq_id": "FAQ-018",
+      "category": "Hotels",
+      "question": "Can I request a specific hotel or star rating?",
+      "answer": "Yes, let us know your preferred hotel, area or star rating and we'll check availability and pricing for you."
+    },
+    {
+      "faq_id": "FAQ-019",
+      "category": "Visa Services",
+      "question": "Which visas can Finar help me apply for?",
+      "answer": "We assist with tourist, business, student, Schengen, and Umrah/Hajj visas. Ask us about other destinations not listed."
+    },
+    {
+      "faq_id": "FAQ-020",
+      "category": "Visa Services",
+      "question": "What documents do I need for a visa application?",
+      "answer": "Requirements vary by country, but typically include a valid passport, photos, proof of accommodation, and a bank statement. We provide a full checklist for your specific destination."
+    },
+    {
+      "faq_id": "FAQ-021",
+      "category": "Visa Services",
+      "question": "How long does visa processing take?",
+      "answer": "Processing time depends on the destination, ranging from 3 days for some tourist visas up to 15 days for Schengen visas. Exact timelines are listed against each visa service."
+    },
+    {
+      "faq_id": "FAQ-022",
+      "category": "Visa Services",
+      "question": "Does Finar guarantee visa approval?",
+      "answer": "No travel agency can guarantee visa approval, as the final decision rests with the embassy or consulate. We do everything possible to ensure your application is complete and well-prepared."
+    },
+    {
+      "faq_id": "FAQ-023",
+      "category": "Umrah & Hajj",
+      "question": "What is included in an Umrah package?",
+      "answer": "Our Umrah packages include flights, visa, hotel accommodation in Makkah and Madinah, transport, and a guided Ziyarah tour. Inclusions vary slightly by package tier."
+    },
+    {
+      "faq_id": "FAQ-024",
+      "category": "Umrah & Hajj",
+      "question": "What is the difference between the Economy, Standard and Premium Umrah packages?",
+      "answer": "They differ mainly in hotel star rating, proximity to Al-Haram, and transport comfort. Premium offers 5-star Haram-view hotels and private transport; Economy offers 3-star hotels with shared transport."
+    },
+    {
+      "faq_id": "FAQ-025",
+      "category": "Umrah & Hajj",
+      "question": "Can I book Umrah for my family together?",
+      "answer": "Yes, family and group bookings are welcome, and our Standard package offers a discount for families of 4 or more travelling together."
+    },
+    {
+      "faq_id": "FAQ-026",
+      "category": "Umrah & Hajj",
+      "question": "How do I book the Hajj package, and is there a waiting list?",
+      "answer": "Hajj packages are seasonal with limited spots, so early registration is strongly recommended. Contact us as soon as the season opens to secure your place."
+    },
+    {
+      "faq_id": "FAQ-027",
+      "category": "Domestic Tourism",
+      "question": "What domestic destinations do you offer tours to?",
+      "answer": "We offer tours to the Meroe Pyramids, Karima and Nubian villages, Port Sudan and the Red Sea coast, Suakin island, Khartoum city sites, and the Blue Nile region, among others."
+    },
+    {
+      "faq_id": "FAQ-028",
+      "category": "Domestic Tourism",
+      "question": "Are your domestic tours guided?",
+      "answer": "Yes, all domestic tour packages include a local guide, and most include transport and select meals as noted in the package description."
+    },
+    {
+      "faq_id": "FAQ-029",
+      "category": "Domestic Tourism",
+      "question": "Is diving experience required for the Red Sea diving expedition?",
+      "answer": "Certified divers can join our guided dives; non-certified travellers can join for snorkelling instead. Let us know your experience level when booking."
+    },
+    {
+      "faq_id": "FAQ-030",
+      "category": "International Tourism",
+      "question": "Which international destinations do you offer packages to?",
+      "answer": "Current packages cover Egypt, Turkey, the UAE, Ethiopia and Malaysia, with more destinations available on request."
+    },
+    {
+      "faq_id": "FAQ-031",
+      "category": "International Tourism",
+      "question": "Can you build a custom international itinerary for me?",
+      "answer": "Yes, beyond our set packages, we can tailor a custom itinerary to your destination, budget and travel dates."
+    },
+    {
+      "faq_id": "FAQ-032",
+      "category": "Group & Corporate Travel",
+      "question": "Do you organise trips for schools and universities?",
+      "answer": "Yes, we arrange chaperoned educational day trips for school and university groups to Sudan's heritage and nature sites."
+    },
+    {
+      "faq_id": "FAQ-033",
+      "category": "Group & Corporate Travel",
+      "question": "Can Finar manage travel for a corporate conference or event?",
+      "answer": "Yes, our MICE & corporate travel service handles flights, hotels, transport and logistics for conferences, delegations and incentive trips."
+    },
+    {
+      "faq_id": "FAQ-034",
+      "category": "Ground Services",
+      "question": "Do you provide airport transfers?",
+      "answer": "Yes, private airport pickup and drop-off is available 24/7 in Khartoum."
+    },
+    {
+      "faq_id": "FAQ-035",
+      "category": "Ground Services",
+      "question": "Can I rent a car through Finar?",
+      "answer": "Yes, we offer sedan and SUV/4x4 rentals, self-drive or with a chauffeur, with discounted weekly rates."
+    },
+    {
+      "faq_id": "FAQ-036",
+      "category": "Travel Support",
+      "question": "Do you offer travel insurance?",
+      "answer": "Yes, we offer medical and trip-protection insurance for both domestic and international travel."
+    },
+    {
+      "faq_id": "FAQ-037",
+      "category": "Travel Support",
+      "question": "Can Finar help with passport renewal?",
+      "answer": "Yes, we provide guidance and appointment support for passport renewal and new applications."
+    },
+    {
+      "faq_id": "FAQ-038",
+      "category": "Travel Support",
+      "question": "Is the travel planning consultation really free?",
+      "answer": "Yes, a 30-minute consultation with a Finar travel advisor is free for all customers, with no obligation to book."
+    },
+    {
+      "faq_id": "FAQ-039",
+      "category": "Honeymoon Packages",
+      "question": "What is included in Finar's honeymoon packages?",
+      "answer": "Our honeymoon packages typically include flights, romantic hotel or resort accommodation, and a special touch such as a couples' spa session, sunset cruise, or room decoration, depending on the package."
+    },
+    {
+      "faq_id": "FAQ-040",
+      "category": "Honeymoon Packages",
+      "question": "Do you offer domestic honeymoon options as well as international?",
+      "answer": "Yes, we offer a domestic Port Sudan & Suakin honeymoon getaway alongside international options like Zanzibar, Istanbul & Cappadocia, and the Maldives."
+    },
+    {
+      "faq_id": "FAQ-041",
+      "category": "Honeymoon Packages",
+      "question": "Can you customise a honeymoon package for us?",
+      "answer": "Yes, beyond our set packages we can tailor the destination, hotel and inclusions to your preferences and budget."
+    },
+    {
+      "faq_id": "FAQ-042",
+      "category": "Hotel Reservation",
+      "question": "Can I book a honeymoon suite through Finar?",
+      "answer": "Yes, we can reserve honeymoon and deluxe suites with romantic room setup on request, both in Sudan and abroad."
+    },
+    {
+      "faq_id": "FAQ-043",
+      "category": "Hotel Reservation",
+      "question": "Can you reserve hotels outside Khartoum and Port Sudan?",
+      "answer": "Yes, we also arrange hotel reservations in cities such as Wad Madani, and can look into other domestic locations on request."
+    },
+    {
+      "faq_id": "FAQ-044",
+      "category": "Car Reservation",
+      "question": "Can I book a car for my honeymoon or wedding transfer?",
+      "answer": "Yes, we offer a chauffeur-driven luxury car reservation for honeymoon transfers, weddings and other special occasions."
+    },
+    {
+      "faq_id": "FAQ-045",
+      "category": "Car Reservation",
+      "question": "Do you have larger vehicles for group or family travel?",
+      "answer": "Yes, a 7-seater minivan is available for families and small groups, in addition to our sedan and SUV/4x4 options."
+    }
+  ]
+}
