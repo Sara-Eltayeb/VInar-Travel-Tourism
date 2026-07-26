@@ -24,7 +24,7 @@ function rowsToData(rows) {
   const records = rows.slice(1).map(row => Object.fromEntries(headers.map((header, index) => [header, clean(row[index])])))
     .filter(row => Object.values(row).some(Boolean));
   const serviceHeaders = ['service_id', 'service_name', 'category'];
-  if (serviceHeaders.some(header => headers.includes(header))) return { services: records.map(rowToService), faqs: [] };
+  if (serviceHeaders.some(header => headers.includes(header))) return { services: records, faqs: [] };
   return { services: [], faqs: records };
 }
 
